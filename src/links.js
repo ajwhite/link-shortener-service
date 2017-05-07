@@ -1,7 +1,12 @@
 import crypto from 'crypto';
 import low from 'lowdb';
 
+const URL = 'http://url.atticuswhite.com';
+
 const db = low('db.json');
+
+db.defaults({links: []})
+  .write();
 
 export function getHex (link) {
   const shasum = crypto.createHash('sha1');
@@ -20,7 +25,6 @@ function shortenHex (hex) {
 export function createLink (link) {
   const hex = getHex(link)
   const shortcode = shortenHex(hex);
-
   db.get('links')
     .push({link, hex, shortcode, clicks: 0})
     .write();
@@ -43,5 +47,5 @@ export function incrementViewCount (shortcode) {
 }
 
 export function formatShortenedLink (shortcode) {
-  return `https://url.atticoos.com/${shortcode}`;
+  return `${URL}/${shortcode}`;
 }

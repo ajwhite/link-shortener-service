@@ -13,6 +13,8 @@ app.use((req, res, next) => {
 app.post('/create', Routes.createLink);
 app.get('/:shortcode', Routes.openShortcode);
 
+app.get('/', (req, res) => res.send('Nothing to see here'));
+
 app.listen(PORT, () => {
   console.log(`starting link-shortening-service on :${PORT}`);
 });
